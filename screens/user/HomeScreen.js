@@ -1,41 +1,66 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View, SafeAreaView} from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/HeaderButton';
 import CardComponent from '../../components/CardComponent';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import DirectMessageScreen from './DirectMessageScreen';
+import TimeCapsuleScreen from './TimeCapsuleScreen';
+import FriendsScreen from './FriendsScreen';
 
+const HomeScreen = () =>
+  {
 
-const HomeScreen = props => {
-  
   return (
+    <SafeAreaView style={styles.screen}>
     <CardComponent/>
+    </SafeAreaView>
   );
-  
 }
 
-HomeScreen.navigationOptions = props => {
-  return {
-    headerTitle: 'Home',
-    headerLeft: (() =>
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-      <Item
-        title="Home"
-        iconName="ios-menu"
-        onPress={() => {
-          navData.navigation.alert('Test');
-        }}
-      />
-    </HeaderButtons>
-    )
-  };  
-};
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+
+  return (
+      <Drawer.Navigator 
+        initialRouteName="Home">
+        <Drawer.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={navData => {
+          return {
+          headerTitle: 'Home Screen',
+          headerLeft: (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+              title="Home"
+              iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+              onPress={() => {
+                navData.navigation.toggleDrawer();
+              }}
+            />
+           </HeaderButtons> 
+          ),}
+         }}/>
+        
+         <Drawer.Screen 
+         name="Friends" 
+         component={FriendsScreen} 
+        />
+         <Drawer.Screen 
+         name="Time Capsule" 
+         component={TimeCapsuleScreen} 
+        />
+        <Drawer.Screen 
+        name="Direct Message" 
+        component={DirectMessageScreen} />
+      </Drawer.Navigator> 
+  );
+}
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center'
   }
 });
-
-export default HomeScreen;

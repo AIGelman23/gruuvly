@@ -1,31 +1,32 @@
 import React from 'react';
+import { SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-
 const SettingsScreen = props => {
-  console.log(props);
+ 
+  const navigation = useNavigation();
+
   return (
+    <SafeAreaView>
     <View styles={styles.screen}>
     <Text>The Settings Screen!</Text>
-    <Button title="Go To Profile Settings" onPress={() => {
-      const {navigation} = props;
-      navigation.navigate({
-        routeName: 'ProfileSettings'
-      }); 
+    <Button 
+    title="Profile Settings" 
+
+    onPress={() => {
+      navigation.navigate('ProfileSettings'); 
     }}/>
-     <Button title="Go To About Screen" onPress={() => {
-      const {navigation} = props;
-      navigation.navigate({
-        routeName: 'AboutScreen'
-      }); 
+     <Button title="About Screen" onPress={() => {
+ 
+      navigation.navigate('AboutScreen'); 
     }}/>
-     <Button title="Go To Terms of Service" onPress={() => {
-      const {navigation} = props;
-      navigation.navigate({
-        routeName: 'TermsOfService'
-      }); 
+     <Button title="Terms of Service" onPress={() => {
+
+      navigation.navigate('TermsOfService'); 
     }}/>
     </View>
+    </SafeAreaView>
   );
 };
 
