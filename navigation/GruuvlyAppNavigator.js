@@ -7,7 +7,6 @@ const GruuvlyAppNavigator = props => {
   return (
   <NavigationContainer>
    <TabNavigator/>
-   
   </NavigationContainer>
   );
 }

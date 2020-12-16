@@ -5,6 +5,10 @@ const EditProfileScreen = props => {
   return (
     <View styles={styles.screen}>
     <Text>The Edit Profile Screen!</Text>
+    <Button 
+      title="Click here"
+      onPress={() => alert("Button Clicked")}
+    />
     </View>
   );
 };

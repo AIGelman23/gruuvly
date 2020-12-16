@@ -1,11 +1,13 @@
 import * as React from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native';
 import { Avatar, Title, Caption, Text, List } from 'react-native-paper';
 import * as Haptics from 'expo-haptics';
-import { Ionicons, Feather, MaterialIcons} from '@expo/vector-icons';
+import { Ionicons, Feather, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const ProfileSettingsScreen = props => {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
   const [haptic, setHaptic] = React.useState(true);
   const handlePress = () => {
     setExpanded(!expanded)
@@ -28,7 +30,10 @@ const ProfileSettingsScreen = props => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
       <View style={styles.userInfoSection}>
-        <View style={[styles.boxWrapper, {flexDirection: 'row', justifyContent: 'center', paddingVertical: 30, padding: 100, margin: 5, borderRadius: 10}]}>
+      <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}
+        >
+        <View style={[styles.boxWrapper, {flexDirection: 'row', justifyContent: 'center', paddingVertical: 30, padding: 100, margin: 5, marginBottom: 0, borderTopRightRadius: 25, borderTopLeftRadius: 25 }]}>
         <Avatar.Image 
           rounded
           source={{
@@ -41,9 +46,11 @@ const ProfileSettingsScreen = props => {
               <Caption style={styles.caption}>@j_doe</Caption>
             </View>
           </View>
+          </LinearGradient>
         </View>
-        
-        <View style={[styles.userInfoSection, {marginTop: 10}]}>
+       
+        <View style={[styles.userInfoSection, {marginTop: 5}]}>
+         
           <View style={[styles.row, {paddingLeft: 20}]}>
           <Feather name="map-pin"  size={25} color="black">
           <View>
@@ -64,7 +71,7 @@ const ProfileSettingsScreen = props => {
           </Feather>
           </View>
 
-          <View style={[styles.row, {paddingLeft: 20}]}>
+          <View style={[styles.row, {paddingLeft: 20, paddingBottom: 20}]}>
           <Feather name="phone" size={25} color="black">
           <View>
           <Text style={{ color: "black", marginLeft: 10,  marginTop: 20,  fontSize: 15}}>
@@ -74,29 +81,31 @@ const ProfileSettingsScreen = props => {
           </Feather>
           </View>
         </View>
-          
+       
          <View style={[styles.boxWrapper,{marginTop: 20}]}>
          <View style={[styles.box, {
             borderRightColor: '#ddd',
             borderRightWidth: 1,
-            padding: 5
+            padding: 10
           }]}>
-            <Title>160</Title>
-            <Caption>Friends</Caption>
+            <View style={{ justifyContent: 'center'}}><Caption>Friends</Caption></View>
+            <View style={{ justifyContent: 'center'}}><Title>160</Title></View>
           </View>
           <View style={[styles.box, {
             borderRightColor: '#ddd',
             borderRightWidth: 1,
             padding: 10
           }]}>
-            <Title>200</Title>
-            <Caption>Posts</Caption>
+            <View style={{ justifyContent: 'center'}}><Caption>Posts</Caption></View>
+            <View style={{ justifyContent: 'center'}}><Title>200</Title></View>
           </View>
              <View style={[styles.box, {
-            padding: 5
+            borderRightColor: '#ddd',
+            borderRightWidth: 1,
+            padding: 10
           }]}>
-            <Title>200</Title>
-            <Caption>Replies</Caption>
+             <View style={{ justifyContent: 'center'}}><Caption>Replies</Caption></View>
+            <View style={{ justifyContent: 'center'}}><Title>200</Title></View>
           </View>
          </View>        
          <List.Section title="Control Your Profile">
@@ -157,34 +166,26 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   boxWrapper: { 
+    borderWidth: 1,
+    borderRadius: 1,
+    borderColor: '#ddd',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignContent: 'center',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    shadowOffset: { width: 1, height: 2 },
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
     elevation: 2,
     backgroundColor: 'white'
   },
   box: {
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignContent: 'center',
-    paddingRight: 50,
     paddingLeft: 50,
-    
+    paddingRight: 50
   },
   userInfoSection: {
-    alignContent: 'center',
-    justifyContent: 'space-between',
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: 1,
     borderColor: '#ddd',
-    shadowOffset: { width: 1, height: 2 },
+    shadowOffset: { width: 1, height: 1 },
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 1,
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   row: {
-   marginVertical: 10,
+   marginVertical: 5,
   }, 
   menuWrapper: {
     flex: 1,

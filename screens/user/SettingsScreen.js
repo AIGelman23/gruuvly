@@ -13,16 +13,15 @@ const SettingsScreen = props => {
     <Text>The Settings Screen!</Text>
     <Button 
     title="Profile Settings" 
-
     onPress={() => {
       navigation.navigate('ProfileSettings'); 
     }}/>
-     <Button title="About Screen" onPress={() => {
- 
+     <Button title="About Screen" 
+     onPress={() => {
       navigation.navigate('AboutScreen'); 
     }}/>
-     <Button title="Terms of Service" onPress={() => {
-
+     <Button title="Terms of Service" 
+     onPress={() => {
       navigation.navigate('TermsOfService'); 
     }}/>
     </View>

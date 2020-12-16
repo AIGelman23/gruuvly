@@ -16,6 +16,10 @@ return(
     component={SettingsScreen}
     />
     <SettingsStackNavigator.Screen 
+    options={{
+      title: "Profile Settings",
+      headerTitle: "Profile Settings"
+    }}
     name="ProfileSettings" // name links to whatever navigation is called on
     component={ProfileSettingsScreen}
     />
