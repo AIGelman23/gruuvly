@@ -1,23 +1,25 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+
 import Colors from '../constants/Colors';
 
-const CustomEditButton = props => {
+const CustomBackButton = props => {
   return (
-    <MaterialCommunityIcons.Button
+    <Entypo.Button
     {...props}
-     IconComponent={MaterialCommunityIcons}
-     name="account-edit" 
+    IconComponent={Entypo}
+     name="arrow-left" 
      backgroundColor="#fff"
      color="#000"
      size={30} 
+     style={{ marginLeft: 20}}
      color={Platform.OS === 'android' ? 'white' : Colors.accentColor}
       />
   );
 };
 
-export default CustomEditButton;
+export default CustomBackButton;
 
 
   

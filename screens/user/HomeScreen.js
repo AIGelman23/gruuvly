@@ -3,9 +3,10 @@ import React from 'react';
 import { Button, Platform, StyleSheet, View, SafeAreaView} from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../../components/HeaderButton';
+import ChatButton from '../../components/ChatButton';
 import CardComponent from '../../components/CardComponent';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-import DirectMessageScreen from './DirectMessageScreen';
+import ChatScreen from './ChatScreen';
 import TimeCapsuleScreen from './TimeCapsuleScreen';
 import FriendsScreen from './FriendsScreen';
 import Colors from '../../constants/Colors';
@@ -23,8 +24,6 @@ const HomeScreen = () =>
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-
- 
 
   return (
     
@@ -55,19 +54,7 @@ export default function App() {
         name="Home" 
         component={HomeScreen} 
         options={navData => {
-          return {
-          headerTitle: 'Home Screen',
-          headerLeft: (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item
-              title="Home"
-              iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-              onPress={() => {
-                navData.navigation.toggleDrawer();
-              }}
-            />
-           </HeaderButtons> 
-          ),}
+          return {}
          }}/>
         
          <Drawer.Screen 
@@ -78,39 +65,9 @@ export default function App() {
          name="Time Capsule" 
          component={TimeCapsuleScreen} 
         />
-        <Drawer.Screen 
-        name="Direct Message" 
-        component={DirectMessageScreen} />
       </Drawer.Navigator> 
   );
 }
-
-export const screenOptions = props => {
-  return {
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Cart"
-          iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-          onPress={() => {
-            navData.navigation.navigate('Cart');
-          }}
-        />
-      </HeaderButtons>
-    )
-  };
-};
 
 const styles = StyleSheet.create({
   screen: {

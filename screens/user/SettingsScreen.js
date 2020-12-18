@@ -1,27 +1,72 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { Button } from 'react-native-elements';
+import { Entypo } from '@expo/vector-icons';
+
 
 const SettingsScreen = props => {
  
   const navigation = useNavigation();
+  const size = 20; //button arrow icon size
 
   return (
-    <SafeAreaView>
-    <View styles={styles.screen}>
-    <Text>The Settings Screen!</Text>
+    <SafeAreaView style={styles.safeView}>
+    <View style={{ padding: 15}}>
+
+    <View style={styles.buttonSpace}>
     <Button 
-    title="Profile Settings" 
+     type="outline"
+     buttonStyle={{ padding: 15, borderRadius: 10, justifyContent: 'space-between', backgroundColor: '#4169e1' }}
+     icon={
+      <Entypo
+        name="chevron-thin-right"
+        size={size}
+        color="white"
+      />
+    }
+    iconRight
+    raised={true}
+    title="Profile Settings"
+    titleStyle={{ color: '#fff' }}
     onPress={() => {
       navigation.navigate('ProfileSettings'); 
     }}/>
-     <Button title="About Screen" 
+    </View>
+    <View style={styles.buttonSpace}>
+     <Button 
+     type="outline"
+     buttonStyle={{ padding: 15, borderRadius: 10, justifyContent: 'space-between', backgroundColor: '#4169e1' }}
+     icon={
+      <Entypo
+        name="chevron-thin-right"
+        size={size}
+        color="#fff"
+      />
+    }
+    iconRight
+    raised={true}
+    title="About Gruuvly" 
+    titleStyle={{ color: '#fff' }}
      onPress={() => {
       navigation.navigate('AboutScreen'); 
     }}/>
-     <Button title="Terms of Service" 
-     onPress={() => {
+    </View>
+     <Button 
+     type="outline"
+     buttonStyle={{ padding: 15, borderRadius: 10, justifyContent: 'space-between', backgroundColor: '#4169e1' }}
+     icon={
+      <Entypo
+        name="chevron-thin-right"
+        size={size}
+        color="#fff"
+      />
+    }
+    iconRight
+    raised={true}
+    title="Terms of Service" 
+    titleStyle={{ color: '#fff' }}
+    onPress={() => {
       navigation.navigate('TermsOfService'); 
     }}/>
     </View>
@@ -30,10 +75,17 @@ const SettingsScreen = props => {
 };
 
 const styles = StyleSheet.create({
+  safeView: {
+    backgroundColor: '#fff',
+    height: '100%'
+  },
   screen: {
     flex: 1, 
     justifyContent: 'center', 
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  buttonSpace: {
+   paddingBottom: 10
   }
 });
 

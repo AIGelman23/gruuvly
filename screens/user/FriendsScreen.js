@@ -5,7 +5,7 @@ const FriendsScreen = props => {
   console.log(props);
   return (
     <View styles={styles.screen}>
-    <Text>The Settings Screen!</Text>
+    <Text>The Friends Screen!</Text>
      <Button title="Back to Settings" onPress={() => {
       const {navigation} = props;
       navigation.openDrawer();

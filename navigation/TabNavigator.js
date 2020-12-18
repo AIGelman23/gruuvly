@@ -7,7 +7,7 @@ import ActivityFeedScreen from '../screens/community/ActivityFeedScreen';
 import FilterScreen from '../screens/user/FilterScreen';
 import SettingsNavigator from '../navigation/SettingsNavigator';
 import HomeNavigator from '../navigation/HomeNavigator';
-import { Ionicons, Feather } from '@expo/vector-icons'; 
+import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons'; 
 
 
 
@@ -26,15 +26,14 @@ export const TabNavigator = () => {
           backgroundColor: Colors.accentColor,
         },
       }}
-     
       >
         <GruuvlyTabNavigator.Screen 
          name="Home"
          component={HomeNavigator}
          options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-home" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="md-home" size={size} color={color} focused={focused} />
           ),
         }}
         />
@@ -43,8 +42,8 @@ export const TabNavigator = () => {
         component={ActivityFeedScreen}
         options={{
           tabBarLabel: 'Activity',
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="activity" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Feather name="activity" size={size} color={color} focused={focused} />
           ),
         }}
         />
@@ -53,8 +52,19 @@ export const TabNavigator = () => {
         component={FilterScreen}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-search" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="md-search" size={size} color={color} focused={focused} />
+          ),
+        }}
+        />
+         <GruuvlyTabNavigator.Screen 
+        name="Notifications"
+        component={ActivityFeedScreen}
+        options={{
+          tabBarBadge: 0,
+          tabBarLabel: 'Notifications',
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="md-notifications-outline" size={size} color={color} focused={focused} />
           ),
         }}
         />
@@ -63,11 +73,14 @@ export const TabNavigator = () => {
         component={SettingsNavigator}
         options={{
           tabBarLabel: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="md-settings" size={size} color={color} />
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name="md-settings" size={size} color={color} focused={focused} />
           ),
         }}
         />
       </GruuvlyTabNavigator.Navigator>
+      
+      // activity navigator, search navigator 
+      // must all be created through homenavigator
   );
 };
