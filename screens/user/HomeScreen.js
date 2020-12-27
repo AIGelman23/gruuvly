@@ -1,17 +1,16 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
-import { Button, Platform, StyleSheet, View, SafeAreaView} from 'react-native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../../components/HeaderButton';
-import ChatButton from '../../components/ChatButton';
+import { Button, StyleSheet, View, SafeAreaView} from 'react-native';
 import CardComponent from '../../components/CardComponent';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-import ChatScreen from './ChatScreen';
 import TimeCapsuleScreen from './TimeCapsuleScreen';
 import FriendsScreen from './FriendsScreen';
 import Colors from '../../constants/Colors';
 
+import { useAuthDispatch } from '../../context/authContext';
+import { signOut } from '../../services/authService';
+
 const HomeScreen = () =>
+
   {
 
   return (
@@ -21,10 +20,23 @@ const HomeScreen = () =>
   );
 }
 
+
+
 const Drawer = createDrawerNavigator();
 
-export default function App() {
 
+export default function App() {
+  
+  const dispatch = useAuthDispatch();
+
+  const handleSignOut = async() => {
+    try {
+      await signOut();
+      dispatch({ type: 'SIGN_OUT' });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     
       <Drawer.Navigator 
@@ -37,10 +49,7 @@ export default function App() {
               <Button
                 title="Logout"
                 color={Colors.primary}
-                onPress={() => {
-                  
-                  // props.navigation.navigate('Auth');
-                }}
+                onPress={handleSignOut}
               />
             </SafeAreaView>
           </View>

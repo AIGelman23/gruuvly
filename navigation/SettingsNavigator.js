@@ -7,12 +7,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SettingsScreen from '../screens/user/SettingsScreen';
 import ProfileSettingsScreen from '../screens/user/ProfileSettingsScreen';
 import EditProfileScreen from '../screens/user/EditProfileScreen';
-//import AboutScreen from '../screens/details/AboutScreen';
-import OnboardingScreen from '../screens/onboarding/OnboardingScreen';
+import AboutScreen from '../screens/details/AboutScreen';
 import TermsOfServiceScreen from '../screens/details/TermsOfServiceScreen';
 
 const SettingsStackNavigator = createStackNavigator();
-
 
 const SettingsNavigator = () => {
   
@@ -54,7 +52,7 @@ return(
      
     <SettingsStackNavigator.Screen 
     name="AboutScreen" 
-    component={OnboardingScreen}
+    component={AboutScreen}
     />
     <SettingsStackNavigator.Screen 
     name="EditProfileScreen" 

@@ -22,10 +22,10 @@ const EditProfileScreen = props => {
   const renderContent = () => (
    
     <View style={styles.panel}>
-    <Text style={styles.panelTitle}>Change Profile Pic</Text>
+    <Text style={styles.panelTitle}>Change Profile Picture</Text>
     <Button 
       type="outline"
-      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1' }}
+      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 20 }}
       icon={
         <FontAwesome5
           name="camera"
@@ -39,13 +39,13 @@ const EditProfileScreen = props => {
       onPress={() => {}}/>
     <Button 
       type="outline"
-      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 10 }}
+      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 20 }}
       title="Choose from Library"
       titleStyle={{ color: '#4169e1', fontSize: 15, flex: 1}}
       onPress={() => {}}/>
     <Button 
       type="outline"
-      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 10 }}
+      buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 20 }}
       title="Cancel"
       titleStyle={{ color: '#4169e1', fontSize: 15, flex: 1}}
       onPress={() => sheetRef.current.snapTo(1)}/>
@@ -71,7 +71,7 @@ const EditProfileScreen = props => {
       <Animated.View style={{opacity: Animated.add(0.3, Animated.multiply(fall, 1.0))}}>
           <Card>
             <View style={{alignItems: 'center'}}>
-            <View><Card.Title>Tap to Change Pic</Card.Title></View>
+            <View><Card.Title>Tap to Change Picture</Card.Title></View>
             <TouchableOpacity  onPress={() => sheetRef.current.snapTo(0)}>
               <Avatar.Image 
                rounded
@@ -139,14 +139,14 @@ const styles = StyleSheet.create({
   panel: {
       alignItems: 'center',
       backgroundColor: '#FFF',
-      paddingTop: 10,
+      paddingTop: 25,
       height: 600,
   },
   panelHeader: {
     alignItems: 'center',
   },
   panelHandle: {
-    width: 70, 
+    width: 35, 
     height: 6, 
     borderRadius: 5, 
     backgroundColor: '#aaa9ad',

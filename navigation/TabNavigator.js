@@ -5,10 +5,9 @@ import Colors from '../constants/Colors';
 
 import ActivityFeedScreen from '../screens/community/ActivityFeedScreen';
 import FilterScreen from '../screens/user/FilterScreen';
-import SettingsNavigator from '../navigation/SettingsNavigator';
-import HomeNavigator from '../navigation/HomeNavigator';
-import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons'; 
-
+import SettingsNavigator from './SettingsNavigator';
+import HomeNavigator from './HomeNavigator';
+import { Ionicons, Feather } from '@expo/vector-icons'; 
 
 
 const GruuvlyTabNavigator = createBottomTabNavigator();

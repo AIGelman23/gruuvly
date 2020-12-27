@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gruuvlyapp-dev-102722-authRole",
+      "UnauthRoleArn": "arn:aws:iam::993604195991:role/amplify-gruuvlyapp-dev-102722-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::993604195991:role/amplify-gruuvlyapp-dev-102722-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-gruuvlyapp-dev-102722-deployment",
+      "UnauthRoleName": "amplify-gruuvlyapp-dev-102722-unauthRole",
+      "StackName": "amplify-gruuvlyapp-dev-102722",
+      "StackId": "arn:aws:cloudformation:us-east-2:993604195991:stack/amplify-gruuvlyapp-dev-102722/52b4ae20-45fc-11eb-bba0-065c36e2dd4e",
+      "AmplifyAppId": "d3frmjeanyi7hn"
+    },
+    "categories": {
+      "auth": {
+        "gruuvlyapp8da2154e": {}
+      }
+    }
+  }
+}
