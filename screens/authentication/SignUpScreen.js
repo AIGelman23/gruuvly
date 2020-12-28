@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, TextInput, SafeAreaView, ImageBackground, StyleSheet} from 'react-native';
-import { signIn, signUp, confirmSignUp } from '../../services/authService';
+import { TouchableOpacity, View, SafeAreaView, ImageBackground, StyleSheet} from 'react-native';
+import { signIn, signUp, confirmSignUp, resendConfirmationCode} from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
 import { Text, Button, Input } from "react-native-elements";
 import { FontAwesome, Entypo } from '@expo/vector-icons'; 
@@ -39,7 +39,7 @@ const SignUpScreen = ({ navigation }) => {
 
   const confirm = () => {
     setVerifyLoading(true);
-    confirmSignUp(username, email, code)
+    confirmSignUp(username, code)
       .then(() => {
         setVerifyLoading(false);
         signIn({
@@ -58,6 +58,19 @@ const SignUpScreen = ({ navigation }) => {
         console.log(err);
       });
   };
+
+  
+  const resend = () => {
+  resendConfirmationCode(username)
+  .then(() => {
+    alert('New Confirmation Code Sent');
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  };
+
+  
 
   return (
     <ImageBackground
@@ -194,6 +207,15 @@ const SignUpScreen = ({ navigation }) => {
             type="outline"
             title="Verify"
             onPress={confirm}
+          />
+           <Button
+            buttonStyle={{ borderColor: "white", borderWidth: 0, marginVertical: 10 }}
+            titleStyle={{ color: '#fff' }}
+            loading={verifyLoading}
+            disabled={verifyLoading}
+            type="outline"
+            title="Resend Confirmation Code"
+            onPress={resend}
           />
         </View>
       )}

@@ -35,6 +35,15 @@ const confirmSignUp = async (username, code) => {
   }
 };
 
+const resendConfirmationCode = async (username) => {
+  try{
+    const response = await Auth.resendSignUp(username);
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 const signOut = async () => {
   try {
     const response = await Auth.signOut();
@@ -54,4 +63,4 @@ const checkAuth = async () => {
   }
 };
 
-export { signIn, signOut, checkAuth, signUp, confirmSignUp };
+export { signIn, signOut, checkAuth, signUp, confirmSignUp, resendConfirmationCode };
