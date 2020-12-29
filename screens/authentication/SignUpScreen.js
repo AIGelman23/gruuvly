@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, SafeAreaView, ImageBackground, StyleSheet} from 'react-native';
+import { 
+  StyleSheet, 
+  TouchableWithoutFeedback,
+  TouchableOpacity, 
+  Keyboard, 
+  ImageBackground, 
+  SafeAreaView, 
+  View } from 'react-native';
 import { signIn, signUp, confirmSignUp, resendConfirmationCode} from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
 import { Text, Button, Input } from "react-native-elements";
@@ -15,6 +22,13 @@ const SignUpScreen = ({ navigation }) => {
   const [signUpLoading, setSignUpLoading] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState(false);
   const [code, setCode] = useState('');
+
+  
+  const DismissKeyboard = ({ children }) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      {children}
+    </TouchableWithoutFeedback>
+  );
 
   const signUpUser = () => {
     setSignUpLoading(true);
@@ -77,6 +91,7 @@ const SignUpScreen = ({ navigation }) => {
     source={require("../../assets/auth/background2.png")}
     style={{ width: "100%", height: "100%" }}
   >
+    <DismissKeyboard>
     <SafeAreaView style={{ flex: 1, justifyContent: 'center'}}>
     <View>
       
@@ -237,6 +252,7 @@ const SignUpScreen = ({ navigation }) => {
       </View>
     </View>
     </SafeAreaView>
+    </DismissKeyboard>
     </ImageBackground>
   );
 };

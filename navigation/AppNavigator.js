@@ -51,6 +51,7 @@ export default function AppNavigator() {
            
           ) : (
             // User is signed in
+            // <Stack.screen name="AppTour" component={AppTour} />
             <Stack.Screen name="Main" component={GruuvlyAppNavigator} />
           )}
          </Stack.Navigator>

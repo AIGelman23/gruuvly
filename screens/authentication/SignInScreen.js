@@ -1,12 +1,18 @@
 
 import React, { useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import { View, SafeAreaView, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, StyleSheet, Keyboard } from 'react-native';
 import { Formik } from 'formik';
 import { signIn } from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
 import { Text, Button, Input } from "react-native-elements";
 import { FontAwesome } from '@expo/vector-icons'; 
 
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useAuthDispatch(); 
@@ -32,8 +38,8 @@ const SignInScreen = ({ navigation }) => {
     source={require("../../assets/auth/background.png")}
     style={{ width: "100%", height: "100%" }}
   >
+    <DismissKeyboard>
     <SafeAreaView style={{ flex: 1, justifyContent: 'center'}}>
-      
       <Formik
         initialValues={{ 
           username: '', }}
@@ -118,8 +124,8 @@ const SignInScreen = ({ navigation }) => {
           <Text style={{color: 'lightblue', fontWeight: 'bold'}}>Sign up!</Text>
         </TouchableOpacity>
       </View>
-      
       </SafeAreaView>
+      </DismissKeyboard>
       </ImageBackground>
   );
 };

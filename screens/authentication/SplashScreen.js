@@ -1,19 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 
 const SplashScreen = () => (
-  <View style={styles.container}>
-    <Text>Loading...</Text>
-  </View>
+ 
+  <ImageBackground
+    source={require("../../assets/splash.png")}
+    style={{ width: "100%", height: "100%" }}
+  ></ImageBackground>
+  
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 export default SplashScreen;
