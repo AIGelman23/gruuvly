@@ -1,14 +1,12 @@
 import React from 'react';
 import { Auth } from 'aws-amplify';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import { Text, Button, Input } from 'react-native-elements';
-import { AsyncStorage } from '@react-native-community/async-storage';
 
 
 const ConfirmSignUpScreen = () => {
 
-  const [username, setUserName] = React.useState('');
-  const [code, setCode] = React.useState('');
+const [username, setUserName] = React.useState('');
 
 async function confirmSignUp() {
     try {
@@ -20,6 +18,7 @@ async function confirmSignUp() {
 }
 
   return (
+    <SafeAreaView>
     <View style={styles.container}>
         <Input
         inputContainerStyle={{
@@ -56,9 +55,12 @@ async function confirmSignUp() {
         onChangeText={setCode}
         autoCapitalize="none"
         autoCorrect={false}
+        keyboardType="numeric"
+        textContentType="oneTimeCode"
       />
       <Button title="Confirm" onPress={() => confirmSignUp({ code })} />
     </View>
+    </SafeAreaView>
   );
 
 };

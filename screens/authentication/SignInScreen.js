@@ -1,12 +1,25 @@
 
 import React, { useState } from 'react';
+import { useFormik, Formik } from 'formik';
 import { View, SafeAreaView, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, StyleSheet, Keyboard } from 'react-native';
-import { Formik } from 'formik';
 import { signIn } from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
-import { Text, Button, Input } from "react-native-elements";
+import { Card, Text, Button, Input, Overlay } from "react-native-elements";
 import { FontAwesome } from '@expo/vector-icons'; 
 
+
+/* Form Validation & Error Messagin */
+
+/*
+import * as Yup from "yup";
+import {
+  handleTextInput,
+  withNextInputAutoFocusForm,
+  withNextInputAutoFocusInput
+} from "react-native-formik";
+*/
+
+/* Dismiss Keyboard when tapping outside text field */
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -14,9 +27,13 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
+
 const SignInScreen = ({ navigation }) => {
+  const [username, setUserName] = React.useState('');
+  const [code, setCode] = React.useState('');
   const dispatch = useAuthDispatch(); 
   const [signInLoading, setSignInLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
   
   const signInUser = async (values) => {
     const { username, password} = values; 
@@ -32,6 +49,9 @@ const SignInScreen = ({ navigation }) => {
       .finally(() => setSignInLoading(false));
   };
 
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
 
   return (
     <ImageBackground
@@ -124,9 +144,109 @@ const SignInScreen = ({ navigation }) => {
           <Text style={{color: 'lightblue', fontWeight: 'bold'}}>Sign up!</Text>
         </TouchableOpacity>
       </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginVertical: 5,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <TouchableOpacity
+          style={{ marginLeft: 4 }}
+          onPress={toggleOverlay}
+        >
+          <Text style={{color: 'lightblue', fontWeight: 'bold'}}>Forgot Password?</Text>
+        </TouchableOpacity>
+      </View>
       </SafeAreaView>
       </DismissKeyboard>
+      
+      <Overlay fullScreen={true} overlayStyle={{ backgroundColor: 'black', opacity: 0.8 }}
+      isVisible={visible}>
+        <View style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginVertical: '50%',
+          }}>
+          <DismissKeyboard>
+          <Card containerStyle={{ borderRadius: 9 }}>
+              <Card.Title style={{fontSize: 20}}>Forgot Password?</Card.Title>
+              <Card.Divider/>
+              <Text style={{marginBottom: 5}}>
+                Please provide your Gruuvly username below and a verification
+                code will be sent to your email address.
+              </Text>
+              <View style={{flexDirection: 'row'  }}>
+              <View style={{flex: 1, width: '50%', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontWeight: 'bold'}}>User Name</Text>
+              </View>
+              <View style={{width: '70%', justifyContent: 'center', alignItems: 'center'}}>
+              <Input
+                inputContainerStyle={{
+                  borderColor: '#fff',
+                  borderRadius: 9,
+                  backgroundColor: 'lightgrey',
+                  color: 'black',
+                  marginTop: 20
+                }}
+                inputStyle={{color: 'black', padding: 10}}
+                value={username}
+                onChangeText={setUserName}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              </View>
+              </View>
+             <View style={{flexDirection: 'row'  }}>
+              <View style={{flex: 1, width: '50%', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontWeight: 'bold'}}>Enter Code</Text>
+              </View>
+              <View style={{width: '70%', justifyContent: 'center', alignItems: 'center'}}>
+              <Input
+                inputContainerStyle={{
+                  borderColor: "#fff",
+                  borderRadius: 9,
+                  backgroundColor: 'lightgrey',
+                  color: 'black',
+                }}
+                inputStyle={{color: 'black', padding: 10}}
+                label={<Text style={styles.label}>Code</Text>}
+                value={code}
+                onChangeText={setCode}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="numeric"
+                textContentType="oneTimeCode"
+              />
+              </View>
+              </View>
+             <View style={{ flexDirection: 'row', justifyContent: 'space-evenly'}}> 
+             <View>
+             <Button
+              buttonStyle={{ borderColor: "black", borderWidth: 0.5, marginVertical: 10, backgroundColor: 'navy' }}
+              titleStyle={{ color: '#fff' }}
+              title="SUBMIT"
+              onPress={toggleOverlay}
+            />
+            </View>
+             <View>
+             <Button
+              buttonStyle={{ borderColor: "black", borderWidth: 0.5, marginVertical: 10, backgroundColor: 'navy' }}
+              titleStyle={{ color: '#fff' }}
+              title="CANCEL"
+              onPress={toggleOverlay}
+            />
+             </View>
+             </View>
+          </Card>
+          </DismissKeyboard>
+          </View>
+         
+      </Overlay>
       </ImageBackground>
+      
   );
 };
   

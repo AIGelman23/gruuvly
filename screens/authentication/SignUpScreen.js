@@ -1,16 +1,37 @@
 import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import { 
   StyleSheet, 
   TouchableWithoutFeedback,
   TouchableOpacity, 
   Keyboard, 
   ImageBackground, 
-  SafeAreaView, 
+  ScrollView, 
   View } from 'react-native';
 import { signIn, signUp, confirmSignUp, resendConfirmationCode} from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
 import { Text, Button, Input } from "react-native-elements";
 import { FontAwesome, Entypo } from '@expo/vector-icons'; 
+
+/* Form Validation & Error Messagin */
+
+/*
+import * as Yup from "yup";
+import {
+  handleTextInput,
+  withNextInputAutoFocusForm,
+  withNextInputAutoFocusInput
+} from "react-native-formik";
+*/
+
+/* Dismiss Keyboard when tapping outside text field */
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
+
 
 const SignUpScreen = ({ navigation }) => {
   const dispatch = useAuthDispatch();
@@ -22,14 +43,7 @@ const SignUpScreen = ({ navigation }) => {
   const [signUpLoading, setSignUpLoading] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState(false);
   const [code, setCode] = useState('');
-
   
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
-
   const signUpUser = () => {
     setSignUpLoading(true);
     signUp({
@@ -83,16 +97,13 @@ const SignUpScreen = ({ navigation }) => {
     console.log(err);
   })
   };
-
-  
-
   return (
     <ImageBackground
     source={require("../../assets/auth/background2.png")}
     style={{ width: "100%", height: "100%" }}
   >
-    <DismissKeyboard>
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center'}}>
+  <DismissKeyboard>
+    <ScrollView contentContainerStyle={{ flex: 1, marginBottom: 200, justifyContent: 'center'}}>
     <View>
       
       {!signed && (
@@ -110,6 +121,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
+            label={<Text style={styles.label}>Preferred User Name</Text>}
             placeholder="Preferred User Name"
             value={username}
             onChangeText={(value) => setUserName(value)}
@@ -130,6 +142,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
+            label={<Text style={styles.label}>Email Address</Text>}
             placeholder="Email"
             value={email}
             onChangeText={(value) => setEmail(value)}
@@ -151,6 +164,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
+           label={<Text style={styles.label}>Phone Number</Text>}
             placeholder="Phone Number"
             value={phone_number}
             onChangeText={(value) => setPhoneNumber(value)}
@@ -170,6 +184,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
+            label={<Text style={styles.label}>Choose a Password</Text>}
             placeholder="Password"
             value={password}
             onChangeText={(value) => setPassword(value)}
@@ -251,7 +266,7 @@ const SignUpScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
-    </SafeAreaView>
+    </ScrollView>
     </DismissKeyboard>
     </ImageBackground>
   );
