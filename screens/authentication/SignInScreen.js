@@ -1,23 +1,14 @@
 
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 import { useFormik, Formik } from 'formik';
+// import * as Yup from 'yup';
 import { View, SafeAreaView, TouchableWithoutFeedback, TouchableOpacity, ImageBackground, StyleSheet, Keyboard } from 'react-native';
-import { signIn } from '../../services/authService';
+import { signIn, forgotPassword } from '../../services/authService';
 import { useAuthDispatch } from '../../context/authContext';
 import { Card, Text, Button, Input, Overlay } from "react-native-elements";
 import { FontAwesome } from '@expo/vector-icons'; 
-
-
-/* Form Validation & Error Messagin */
-
-/*
-import * as Yup from "yup";
-import {
-  handleTextInput,
-  withNextInputAutoFocusForm,
-  withNextInputAutoFocusInput
-} from "react-native-formik";
-*/
+import { useNavigation } from '@react-navigation/native';
 
 /* Dismiss Keyboard when tapping outside text field */
 
@@ -27,26 +18,53 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-
-const SignInScreen = ({ navigation }) => {
-  const [username, setUserName] = React.useState('');
-  const [code, setCode] = React.useState('');
+const SignInScreen = () => {
   const dispatch = useAuthDispatch(); 
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorRendered, setErrorRendered] = useState(false);
   const [signInLoading, setSignInLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [visible, setVisible] = useState(false);
-  
+  const navigation = useNavigation();
+
   const signInUser = async (values) => {
     const { username, password} = values; 
     setSignInLoading(true);
-    signIn(username,  password)
+    signIn(username, password)
       .then((r) => {
-        console.log(r);
+        setErrorMessage('');
         dispatch({ type: 'SIGN_IN', token: r.signInUserSession.accessToken.jwtToken });
+      })
+      .catch((e) => {
+        if (e.message) {
+          setErrorRendered(true);
+          setErrorMessage(e.message);
+        }    
+      })
+      .finally(() => setSignInLoading(false));
+  };
+
+  const forgotPswd = async (values) => {
+
+
+    const { username } = values; 
+    setSubmitLoading(true);
+    forgotPassword(username)
+      .then(() => {
+        Alert.alert(
+          "Verification Code Sent!",
+          "After checking your email and obtaining your verification code please click OK to continue. ",
+          [
+            { text: "OK" }
+          ],
+          { cancelable: false }
+        );
       })
       .catch((e) => {
         console.log(e);
       })
-      .finally(() => setSignInLoading(false));
+      .finally(() => setSubmitLoading(false));
+
   };
 
   const toggleOverlay = () => {
@@ -59,7 +77,7 @@ const SignInScreen = ({ navigation }) => {
     style={{ width: "100%", height: "100%" }}
   >
     <DismissKeyboard>
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center'}}>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
       <Formik
         initialValues={{ 
           username: '', }}
@@ -68,7 +86,7 @@ const SignInScreen = ({ navigation }) => {
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View  style={{
             justifyContent: 'center',
-            alignItems: 'center'}}>
+            alignItems: 'center', paddingTop: 50 }}>
             <Input
              inputContainerStyle={{
               borderColor: "white",
@@ -78,8 +96,10 @@ const SignInScreen = ({ navigation }) => {
               marginTop: 10,
               marginLeft: 20,
               marginRight: 20,
-            }}
-              label={<Text style={styles.label}>User Name</Text>}
+            }}  
+              label={
+              <Text style={styles.label}>User Name</Text>
+               }
               placeholder="User Name"
               value={values.username}
               onChangeText={handleChange('username')}
@@ -125,11 +145,15 @@ const SignInScreen = ({ navigation }) => {
               title="SIGN IN"
               onPress={handleSubmit}
             />
+            <View style={{padding: 5}}>
+            { errorRendered && (<Text style={styles.errorMessage}>{errorMessage}</Text>) }
+            </View>
           </View>
         )}
       </Formik>
       <View
         style={{
+
           flexDirection: 'row',
           marginVertical: 18,
           justifyContent: 'center',
@@ -164,11 +188,17 @@ const SignInScreen = ({ navigation }) => {
       
       <Overlay fullScreen={true} overlayStyle={{ backgroundColor: 'black', opacity: 0.8 }}
       isVisible={visible}>
+       <Formik
+        initialValues={{ 
+          username: '', }}
+        onSubmit={(values) => forgotPswd(values)}
+      >
+        {({ handleReset, handleChange, handleBlur, handleSubmit, values }) => (
         <View style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginVertical: '50%',
+          marginVertical: '70%',
           }}>
           <DismissKeyboard>
           <Card containerStyle={{ borderRadius: 9 }}>
@@ -178,9 +208,10 @@ const SignInScreen = ({ navigation }) => {
                 Please provide your Gruuvly username below and a verification
                 code will be sent to your email address.
               </Text>
+              
               <View style={{flexDirection: 'row'  }}>
               <View style={{flex: 1, width: '50%', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontWeight: 'bold'}}>User Name</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>User Name</Text>
               </View>
               <View style={{width: '70%', justifyContent: 'center', alignItems: 'center'}}>
               <Input
@@ -192,58 +223,48 @@ const SignInScreen = ({ navigation }) => {
                   marginTop: 20
                 }}
                 inputStyle={{color: 'black', padding: 10}}
-                value={username}
-                onChangeText={setUserName}
+                value={values.username}
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
                 autoCapitalize="none"
                 autoCorrect={false}
-              />
-              </View>
-              </View>
-             <View style={{flexDirection: 'row'  }}>
-              <View style={{flex: 1, width: '50%', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontWeight: 'bold'}}>Enter Code</Text>
-              </View>
-              <View style={{width: '70%', justifyContent: 'center', alignItems: 'center'}}>
-              <Input
-                inputContainerStyle={{
-                  borderColor: "#fff",
-                  borderRadius: 9,
-                  backgroundColor: 'lightgrey',
-                  color: 'black',
-                }}
-                inputStyle={{color: 'black', padding: 10}}
-                label={<Text style={styles.label}>Code</Text>}
-                value={code}
-                onChangeText={setCode}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="numeric"
-                textContentType="oneTimeCode"
               />
               </View>
               </View>
              <View style={{ flexDirection: 'row', justifyContent: 'space-evenly'}}> 
              <View>
              <Button
-              buttonStyle={{ borderColor: "black", borderWidth: 0.5, marginVertical: 10, backgroundColor: 'navy' }}
-              titleStyle={{ color: '#fff' }}
-              title="SUBMIT"
-              onPress={toggleOverlay}
+              buttonStyle={{ borderColor: "black", padding: 10, borderWidth: 0.5, marginVertical: 10, borderRadius: 5 }}
+              titleStyle={{ color: '#000', fontWeight: 'bold' }}
+              title="Submit"
+              name="submit"
+              type="outline"
+              loading={submitLoading}
+              disabled={submitLoading}
+              onPress={()=> {
+                handleSubmit(),
+                handleReset(true),
+                toggleOverlay(true),
+                navigation.navigate('ForgotPassword')}} // add event handling for auth
             />
             </View>
              <View>
              <Button
-              buttonStyle={{ borderColor: "black", borderWidth: 0.5, marginVertical: 10, backgroundColor: 'navy' }}
-              titleStyle={{ color: '#fff' }}
-              title="CANCEL"
+              buttonStyle={{ borderColor: "black", padding: 10, borderWidth: 0.5, marginVertical: 10, borderRadius: 5 }}
+              titleStyle={{ color: '#000', fontWeight: 'bold' }}
+              title="Cancel"
+              name="cancel"
+              type="outline"
               onPress={toggleOverlay}
             />
              </View>
              </View>
+           
           </Card>
           </DismissKeyboard>
           </View>
-         
+        )}
+        </Formik>
       </Overlay>
       </ImageBackground>
       
@@ -253,7 +274,8 @@ const SignInScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 16,
-    color: "red",
+    color: "yellow",
+    fontWeight: 'bold',
     marginLeft: 15,
     marginTop: 15,
   },

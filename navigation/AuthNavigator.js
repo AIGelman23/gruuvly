@@ -6,6 +6,8 @@ import {
 } from '@react-navigation/stack';
 import SignInScreen from '../screens/authentication/SignInScreen';
 import SignUpScreen from '../screens/authentication/SignUpScreen';
+import { startClock } from 'react-native-reanimated';
+import ForgotPasswordScreen from '../screens/authentication/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,13 @@ const AuthNavigator = ({ isSignout }) => (
       options={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
       }}
+    />
+    <Stack.Screen 
+       name="ForgotPassword"
+       component={ForgotPasswordScreen}
+       options={{
+         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
+       }}
     />
   </Stack.Navigator>
 );

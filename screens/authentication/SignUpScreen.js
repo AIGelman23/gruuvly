@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useFormik } from 'formik';
 import { 
   StyleSheet, 
   TouchableWithoutFeedback,
@@ -12,19 +11,6 @@ import { signIn, signUp, confirmSignUp, resendConfirmationCode} from '../../serv
 import { useAuthDispatch } from '../../context/authContext';
 import { Text, Button, Input } from "react-native-elements";
 import { FontAwesome, Entypo } from '@expo/vector-icons'; 
-
-/* Form Validation & Error Messagin */
-
-/*
-import * as Yup from "yup";
-import {
-  handleTextInput,
-  withNextInputAutoFocusForm,
-  withNextInputAutoFocusInput
-} from "react-native-formik";
-*/
-
-/* Dismiss Keyboard when tapping outside text field */
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,6 +26,8 @@ const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [phone_number, setPhoneNumber] = useState('');
   const [signed, setSigned] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorRendered, setErrorRendered] = useState(false);
   const [signUpLoading, setSignUpLoading] = useState(false);
   const [verifyLoading, setVerifyLoading] = useState(false);
   const [code, setCode] = useState('');
@@ -56,12 +44,14 @@ const SignUpScreen = ({ navigation }) => {
     })
       .then((data) => {
         console.log(data);
+        setErrorMessage('');
         setSigned(true);
         setSignUpLoading(false);
       })
-      .catch((err) => {
+      .catch((e) => {
         setSignUpLoading(false);
-        console.log(err);
+        setErrorRendered(true);
+        setErrorMessage(e.message);
       });
   };
 
@@ -81,9 +71,11 @@ const SignUpScreen = ({ navigation }) => {
           dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' })
         );
       })
-      .catch((err) => {
+      .catch((e) => {
+        console.log(e);
         setVerifyLoading(false);
-        console.log(err);
+        setErrorRendered(true);
+        setErrorMessage(e.message);
       });
   };
 
@@ -97,6 +89,7 @@ const SignUpScreen = ({ navigation }) => {
     console.log(err);
   })
   };
+  
   return (
     <ImageBackground
     source={require("../../assets/auth/background2.png")}
@@ -105,7 +98,6 @@ const SignUpScreen = ({ navigation }) => {
   <DismissKeyboard>
     <ScrollView contentContainerStyle={{ flex: 1, marginBottom: 200, justifyContent: 'center'}}>
     <View>
-      
       {!signed && (
         <View  style={{
       justifyContent: 'center',
@@ -128,6 +120,7 @@ const SignUpScreen = ({ navigation }) => {
             keyboardType="default"
             textContentType="username"
             autoCapitalize="none"
+            autoFocus
             leftIcon={
               <FontAwesome style={styles.loginIcon} name="user" size={24} color="black" />
             }
@@ -149,6 +142,7 @@ const SignUpScreen = ({ navigation }) => {
             keyboardType="email-address"
             textContentType="emailAddress"
             autoCapitalize="none"
+            autoFocus
             autoCompleteType="email"
             leftIcon={
               <Entypo style={styles.loginIcon} name="mail" size={24} color="black" />
@@ -192,6 +186,7 @@ const SignUpScreen = ({ navigation }) => {
             keyboardType="default"
             textContentType="password"
             autoCapitalize="none"
+            autoFocus
             autoCompleteType="password"
             leftIcon={
               <FontAwesome style={styles.loginIcon} name="lock" size={24} color="black" />
@@ -206,6 +201,9 @@ const SignUpScreen = ({ navigation }) => {
             title="SIGN UP"
             onPress={signUpUser}
           />
+          <View style={{padding: 5}}>
+          { errorRendered && (<Text style={styles.errorMessage}>{errorMessage}</Text>) }
+          </View>
         </View>
       )}
       {signed && (
@@ -275,7 +273,8 @@ const SignUpScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 16,
-    color: "red",
+    color: "yellow",
+    fontWeight: 'bold',
     marginLeft: 15,
     marginTop: 15,
   },
