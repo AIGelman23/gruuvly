@@ -9,6 +9,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
 import * as Haptics from 'expo-haptics';
 
+import { Auth } from 'aws-amplify'
+
 const EditProfileScreen = props => {
 
   const [selectedImage, setSelectedImage] = React.useState(null);
@@ -115,7 +117,7 @@ const EditProfileScreen = props => {
           />
 
           
-          <View style={{alignItems: 'center'}}><Title>John Doe</Title></View>
+        <View style={{alignItems: 'center'}}><Title>{Auth.user.attributes.preferred_username}</Title></View>
           </TouchableOpacity>  
           </View>
           </Card>

@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native';
-import { Avatar, Title, Caption, Text, List } from 'react-native-paper';
-import { Ionicons, Feather, MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import * as Haptics from 'expo-haptics';
+import { Avatar, Title, Caption, Text } from 'react-native-paper';
+import { Feather, FontAwesome } from '@expo/vector-icons';
+import ProfileAccordion from '../../components/accordions/ProfileAccordion';
+import PersonalizeAccordion from '../../components/accordions/PersonalizeAccordion';
 
-import ListAccordion from '../../components/list-components/ListAccordion';
-import { acc } from 'react-native-reanimated';
+import { Auth } from 'aws-amplify'
+
 
 const ProfileSettingsScreen = props => {
 
@@ -23,8 +24,7 @@ const ProfileSettingsScreen = props => {
              size={120}
           />
             <View style={{ marginLeft: 20 }}>
-              <Title style={[styles.title, {marginTop: 35, marginBottom: 5}]}>John Doe</Title>
-              <Caption style={styles.caption}>@j_doe</Caption>
+              <Title style={[styles.title, {marginTop: 45, marginBottom: 5}]}>{Auth.user.attributes.preferred_username} </Title>
             </View>
           </View>
         </View>
@@ -45,13 +45,13 @@ const ProfileSettingsScreen = props => {
           <Feather name="mail" size={25} color="black" />
           <View style={{paddingTop: 5}}>
           <Text style={{color: "black", fontSize: 15}}>
-          john.doe@gmail.com
+          {Auth.user.attributes.email}
           </Text>
           </View>
           </View>
          
 
-          <View style={[styles.item, { paddingRight: 45 }]}>
+          <View style={[styles.item, { paddingRight: 80 }]}>
           <Feather name="phone" size={25} color="black" />
           <Text style={{ color: "black", fontSize: 15, paddingTop: 5}}>
            412-123-4567
@@ -94,9 +94,14 @@ const ProfileSettingsScreen = props => {
           </View>
          </View>        
       
-        <ListAccordion accordionTitle="sdsd" />
-
-        <ListAccordion accordionTitle />
+        <ProfileAccordion
+        accordionSectionTitle="Your Profile Settings" 
+        accordionListTitle="Privacy & Security"
+        />
+        <PersonalizeAccordion 
+        accordionListTitle="Personalization"
+        />
+        
 
     </ScrollView>
       </SafeAreaView>
@@ -147,30 +152,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 30,
     paddingVertical: 25
-  },
-  accordionWrapper: {
-    borderWidth: 1,
-    borderRadius: 1,
-    borderColor: '#ddd',
-    shadowOffset: { width: 1, height: 1 },
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-    backgroundColor: 'white',
-  },
-  listItemStyle: {
-    paddingTop: 5,
-    margin: 5,
-    borderWidth: 1,
-    backgroundColor: '#d3d3d3',
-    borderColor: '#ddd',
-    shadowOffset: { width: 1, height: 0 },
-    shadowColor: '#000',
-    opacity: 0.7,
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-    elevation: 1,
   }
 });
 
