@@ -18,7 +18,6 @@ const DismissKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-
 const SignUpScreen = ({ navigation }) => {
   const dispatch = useAuthDispatch();
   const [username, setUserName] = useState('');
@@ -113,7 +112,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
-            label={<Text style={styles.label}>Preferred User Name</Text>}
+            label={<Text style={styles.label}>Preferred User Name *</Text>}
             placeholder="Preferred User Name"
             value={username}
             onChangeText={(value) => setUserName(value)}
@@ -135,7 +134,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
-            label={<Text style={styles.label}>Email Address</Text>}
+            label={<Text style={styles.label}>Email Address *</Text>}
             placeholder="Email"
             value={email}
             onChangeText={(value) => setEmail(value)}
@@ -178,7 +177,7 @@ const SignUpScreen = ({ navigation }) => {
             marginLeft: 20,
             marginRight: 20,
           }}
-            label={<Text style={styles.label}>Choose a Password</Text>}
+            label={<Text style={styles.label}>Choose a Password *</Text>}
             placeholder="Password"
             value={password}
             onChangeText={(value) => setPassword(value)}

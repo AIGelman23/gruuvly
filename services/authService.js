@@ -3,7 +3,6 @@ import awsmobile from "../aws-exports";
 
 Amplify.configure(awsmobile);
 
-
 const forgotPassword = async (username) => {
   try {
     const response = await Auth.forgotPassword(username);

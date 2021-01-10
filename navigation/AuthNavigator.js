@@ -6,7 +6,6 @@ import {
 } from '@react-navigation/stack';
 import SignInScreen from '../screens/authentication/SignInScreen';
 import SignUpScreen from '../screens/authentication/SignUpScreen';
-import { startClock } from 'react-native-reanimated';
 import ForgotPasswordScreen from '../screens/authentication/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();

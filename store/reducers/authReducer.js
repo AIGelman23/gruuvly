@@ -21,4 +21,4 @@ export const authReducer = (prevState, action) => {
       default: 
       return prevState
   }
-}
+};

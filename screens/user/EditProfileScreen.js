@@ -1,13 +1,46 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { Title, Avatar, Text } from 'react-native-paper';
 import { Button, Card, Input } from 'react-native-elements';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as ImagePicker from 'expo-image-picker';
+import * as Haptics from 'expo-haptics';
 
 const EditProfileScreen = props => {
+
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
+  const [expanded, setExpanded] = React.useState(false);
+  const [haptic, setHaptic] = React.useState(true);
+  const handlePress = () => {
+    setExpanded(!expanded)
+    if(!expanded){
+    setHaptic( !haptic === Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success) &&  !haptic === Haptics.impactAsync( 
+    Haptics.ImpactFeedbackStyle.Light) )
+    } else {
+    setHaptic()
+    }  
+  };
+
+   let openImageLibrary = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setSelectedImage({ localUri: pickerResult.uri });
+  };
+
 
   const renderHeader = () => (
     <View style={styles.header}>
@@ -42,7 +75,7 @@ const EditProfileScreen = props => {
       buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 20 }}
       title="Choose from Library"
       titleStyle={{ color: '#4169e1', fontSize: 15, flex: 1}}
-      onPress={() => {}}/>
+      onPress={openImageLibrary}/>
     <Button 
       type="outline"
       buttonStyle={{ justifyContent: 'space-between', borderRadius: 10, width: 200, height: 50, borderColor: '#4169e1', marginTop: 20 }}
@@ -72,14 +105,16 @@ const EditProfileScreen = props => {
           <Card>
             <View style={{alignItems: 'center'}}>
             <View><Card.Title>Tap to Change Picture</Card.Title></View>
-            <TouchableOpacity  onPress={() => sheetRef.current.snapTo(0)}>
-              <Avatar.Image 
+            <TouchableOpacity onPress={()=> sheetRef.current.snapTo(0)}>
+              <Avatar.Image   
                rounded
                source={{
              uri: 'https://media-exp1.licdn.com/dms/image/C4E03AQH9dj3Ie9J9ng/profile-displayphoto-shrink_100_100/0/1601337533090?e=1613606400&v=beta&t=6RLUEmKFw0uOTe3CS8Tui5n6Sm0jmrjNnp_T7fvqhMU',
          }}
              size={130}
           />
+
+          
           <View style={{alignItems: 'center'}}><Title>John Doe</Title></View>
           </TouchableOpacity>  
           </View>

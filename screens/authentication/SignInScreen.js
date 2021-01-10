@@ -29,6 +29,7 @@ const SignInScreen = () => {
 
   const signInUser = async (values) => {
     const { username, password} = values; 
+    console.log(username, password);
     setSignInLoading(true);
     signIn(username, password)
       .then((r) => {
@@ -80,7 +81,9 @@ const SignInScreen = () => {
     <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
       <Formik
         initialValues={{ 
-          username: '', }}
+          username: '',
+          password: '' 
+        }}
         onSubmit={(values) => signInUser(values)}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -132,6 +135,7 @@ const SignInScreen = () => {
               textContentType="password"
               autoCapitalize="none"
               autoCompleteType="password"
+              required={true}
               leftIcon={
                 <FontAwesome style={styles.loginIcon} name="lock" size={24} color="black" />
               }

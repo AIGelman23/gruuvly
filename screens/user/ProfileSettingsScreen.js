@@ -1,29 +1,13 @@
 import * as React from 'react';
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native';
 import { Avatar, Title, Caption, Text, List } from 'react-native-paper';
+import { Ionicons, Feather, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import { Ionicons, Feather, MaterialIcons } from '@expo/vector-icons';
+
+import ListAccordion from '../../components/list-components/ListAccordion';
+import { acc } from 'react-native-reanimated';
 
 const ProfileSettingsScreen = props => {
-  
-  const [expanded, setExpanded] = React.useState(false);
-  const [haptic, setHaptic] = React.useState(true);
-  const handlePress = () => {
-    setExpanded(!expanded)
-    if(!expanded){
-    setHaptic( !haptic === Haptics.notificationAsync() )
-    } else {
-    setHaptic()
-    }  
-    // handlePress includes two functions - one is a standard
-    // function that uses state and returns true if the accordion
-    // is !expanded allowing the accordion list expand or appear
-    // setHaptic is also another function that accepts a condition
-    // of if !haptic is true or the handlePress event is fired
-    // then call from the Expo Haptics library and use notificationAsync
-    // to produce a haptic feedback ELSE return to the original state
-    // if not expanded and DO NOT produce haptic feedback
-  };
 
   return (
     
@@ -43,7 +27,6 @@ const ProfileSettingsScreen = props => {
               <Caption style={styles.caption}>@j_doe</Caption>
             </View>
           </View>
-         
         </View>
         
         <View style={styles.userInfoSection}>
@@ -53,8 +36,8 @@ const ProfileSettingsScreen = props => {
           <View style={styles.item}>
           <Feather name="map-pin" size={25} color="black" />
           <View style={{paddingTop: 5}}>
-          <Text style={{color: "black", fontSize: 15, marginRight: 15}}>
-          Pittsburgh, PA
+          <Text style={{color: "black", fontSize: 15}}>
+         Pittsburgh, PA
           </Text>
           </View>
           
@@ -68,14 +51,19 @@ const ProfileSettingsScreen = props => {
           </View>
          
 
-          <View style={[styles.item, { paddingRight: 212 }]}>
+          <View style={[styles.item, { paddingRight: 45 }]}>
           <Feather name="phone" size={25} color="black" />
           <Text style={{ color: "black", fontSize: 15, paddingTop: 5}}>
            412-123-4567
           </Text>
+          <FontAwesome name="birthday-cake" size={25} color="black" />
+          <Text style={{ color: "black", fontSize: 15, paddingTop: 5}}>
+           Feb 23 1987
+          </Text>
           </View>
 
           </View>
+          
         
         </View>
        
@@ -105,53 +93,11 @@ const ProfileSettingsScreen = props => {
             <View style={{ justifyContent: 'center'}}><Title>200</Title></View>
           </View>
          </View>        
-         <List.Section title="Control Your Profile">
-          
-      <List.Accordion
-      theme={{ colors: {primary: '#FC3FAF', accent: '#afc'}}}
-        style={styles.accordionWrapper}
-        title="Privacy & Security"
-        titleStyle={{ fontSize: 15 }}
-        left={props => <Feather name="lock" size={24} color="black" style={{paddingLeft: 5}} />}
-        expanded={expanded}
-        onPress={handlePress}>
-        <List.Item 
-        style={styles.listItemStyle}
-        left={props => <Ionicons name="ios-key" size={24} color="black"  />}
-        title="Account Password" 
-        titleStyle={{ fontSize: 15 }}
-        onPress={handlePress}/>
-        <List.Item 
-        style={styles.listItemStyle}
-        left={props => <MaterialIcons name="block" size={20} color="black" style={{ paddingTop: 5}} />}
-        title="Blocking" 
-        titleStyle={{ fontSize: 15 }}
-        onPress={handlePress}/>
-        <List.Item 
-        style={styles.listItemStyle}
-        left={props => <MaterialIcons name="location-searching" size={20} color="black" style={{ paddingTop: 5}} />}
-        title="Location Tracking" 
-        onPress={handlePress}/>
-         <List.Item 
-        style={styles.listItemStyle}
-        left={props => <Feather name="check-circle" size={20} color="black" style={{ paddingTop: 5}} />}
-        title="Active Status" 
-        titleStyle={{ fontSize: 15 }}
-        onPress={handlePress}/>
-         <List.Item 
-         style={styles.listItemStyle}
-        left={props => <Feather name="tag" size={20} color="black" style={{ paddingTop: 5}} />}
-        title="Tagging" 
-        titleStyle={{ fontSize: 15 }}
-        onPress={handlePress}/>
-           <List.Item 
-        style={styles.listItemStyle}
-        left={props => <MaterialIcons name="notifications-none" size={20} color="black" style={{ paddingTop: 5}} />}
-        title="Notifications" 
-        titleStyle={{ fontSize: 15 }}
-        onPress={handlePress}/>
-      </List.Accordion>
-    </List.Section>
+      
+        <ListAccordion accordionTitle="sdsd" />
+
+        <ListAccordion accordionTitle />
+
     </ScrollView>
       </SafeAreaView>
    
