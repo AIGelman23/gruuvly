@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { useNavigation, StackActions, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -7,12 +8,15 @@ import HeaderButton from '../components/HeaderButton';
 import ChatBubble from '../components/ChatButton';
 import ChatScreen from '../screens/user/ChatScreen';
 import BackButton from '../components/BackButton';
+import SearchButton from '../components/SearchButton';
+import FilterScreen from '../screens/user/FilterScreen'
 
 const HomeStackNavigator = createStackNavigator();
 
 const HomeNavigator = props => {
 
 const navigation = useNavigation();
+
 
 return(
     <HomeStackNavigator.Navigator
@@ -33,6 +37,7 @@ return(
       </HeaderButtons>
     ),
     headerRight: () => (
+      <View style={{ flex: 1, flexDirection: 'row' }}>
       <HeaderButtons HeaderButtonComponent={ChatBubble}>
         <Item
           title="Chat"
@@ -42,6 +47,16 @@ return(
           }}
         />
       </HeaderButtons>
+      <HeaderButtons HeaderButtonComponent={SearchButton}>
+        <Item
+        title="Search"
+        iconName={Platform.OS === 'android' ? 'md-search' : 'md-search'}
+        onPress={() => {
+          navigation.navigate('FilterScreen', {screen: 'FilterScreen'});
+        }}
+        />
+        </HeaderButtons>
+        </View>
     ),
    }}
     />
@@ -59,6 +74,14 @@ return(
             />
           </HeaderButtons> 
         ),
+    }}
+    />
+     <HomeStackNavigator.Screen 
+    name="FilterScreen" 
+    component={FilterScreen}
+    options={{
+      cardStyle: { backgroundColor: '#FFFFFF' },
+      headerShown: false,
     }}
     />
     </HomeStackNavigator.Navigator>

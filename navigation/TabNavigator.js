@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
 import Colors from '../constants/Colors';
 
 import ActivityFeedScreen from '../screens/community/ActivityFeedScreen';
@@ -52,7 +51,7 @@ export const TabNavigator = () => {
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons name="md-search" size={size} color={color} focused={focused} />
+            <Feather name="plus-circle" size={size} color={color} focused={focused} />
           ),
         }}
         />

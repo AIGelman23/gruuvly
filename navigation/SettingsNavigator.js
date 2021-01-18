@@ -53,6 +53,9 @@ return(
     <SettingsStackNavigator.Screen 
     name="AboutScreen" 
     component={AboutScreen}
+    options={{
+      headerTitle: "About Gruuvly"
+    }}
     />
     <SettingsStackNavigator.Screen 
     name="EditProfileScreen" 
@@ -73,6 +76,9 @@ return(
     <SettingsStackNavigator.Screen 
     name="TermsOfService" 
     component={TermsOfServiceScreen}
+    options={{
+      headerTitle: "Terms of Service"
+    }}
     />
     </SettingsStackNavigator.Navigator>
   );

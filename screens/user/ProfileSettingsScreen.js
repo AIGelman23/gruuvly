@@ -24,7 +24,7 @@ const ProfileSettingsScreen = props => {
              size={120}
           />
             <View style={{ marginLeft: 20 }}>
-              <Title style={[styles.title, {marginTop: 45, marginBottom: 5}]}>{Auth.user.attributes.preferred_username} </Title>
+              <Title style={[styles.title, {marginTop: 45, marginBottom: 5}]}>{Auth.user.attributes.preferred_username}</Title>
             </View>
           </View>
         </View>

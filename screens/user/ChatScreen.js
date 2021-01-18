@@ -11,10 +11,6 @@ const ChatScreen = props => {
   );
 };
 
-ChatScreen.navigationOptions = {
-  headerTitle: "Direct Messages"
-};
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1, 
