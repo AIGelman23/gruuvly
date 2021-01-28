@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { FlatList } from 'react-native';
-
 import { Button, StyleSheet, View, SafeAreaView} from 'react-native';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import TimeCapsuleScreen from './TimeCapsuleScreen';
@@ -10,9 +9,8 @@ import Colors from '../../constants/Colors';
 import { useAuthDispatch } from '../../context/authContext';
 import { signOut } from '../../services/authService';
 
+
 import CardPost from '../../components/CardPost';
-
-
 import {
  Container
 } from '../../styles/FeedStyles';

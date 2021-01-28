@@ -19,8 +19,10 @@
     "aws-amplify": "^3.3.14",
     "aws-amplify-react-native": "^4.2.10",
     "expo": "^39.0.0",
+    "expo-camera": "~9.0.0",
     "expo-font": "~8.3.0",
     "expo-haptics": "~8.3.0",
+    "expo-image-manipulator": "~8.3.0",
     "expo-image-picker": "^9.2.1",
     "expo-linear-gradient": "~8.3.0",
     "expo-splash-screen": "~0.6.2",
@@ -49,10 +51,9 @@
     "react-scripts": "^4.0.1",
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.1",
-    "yup": "^0.32.8",
-    "expo-image-manipulator": "~8.3.0",
-    "expo-camera": "~9.0.0"
+    "yup": "^0.32.8"
   },
   "private": true
 }

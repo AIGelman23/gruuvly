@@ -9,6 +9,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
+import Colors from '../../constants/Colors';
+
 import { Auth } from 'aws-amplify';
 
 
@@ -118,6 +120,10 @@ const EditProfileScreen = props => {
     }
   }
 
+
+ 
+
+
   const __switchCamera = () => {
     if (cameraType === 'back') {
       setCameraType('front')
@@ -219,7 +225,8 @@ const EditProfileScreen = props => {
      <View style={{ flexDirection: 'column', flex: .2 }}>
   <Button
     onPress={__switchCamera}
-    title= {cameraType === 'front' ? (<MaterialIcons name="camera-front" size={50} color="#fff" />) : (<MaterialCommunityIcons name="camera-rear" size={50} color="#0e0e" />)}
+    title={cameraType === 'front' ?  (<MaterialIcons type='front' name="camera-front" size={50} color={Colors.primary} />)  : (<MaterialCommunityIcons type='back' name="camera-rear" size={50} color={Colors.accentColor} />)}
+
     buttonStyle={{
     borderRadius: 50,
     height: 60,
