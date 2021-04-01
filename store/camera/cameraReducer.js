@@ -1,18 +1,18 @@
-import * as actions from '../authentication/actions/actionTypes';
+import * as actions from '../../store/camera/actions';
 
-let prevState = {
+let initialState = {
   selectedImage: null
 }
 
-export default function reducer(state = prevState, action) {
+export default function reducer(state = initialState, action) {
     switch (action.type) {
       case actions.PICK_IMAGE:
         return {
           ...state,
-          setSelectedImage: action.payload.setSelectedImage
+          selectedImage: action.url
         }
         default:
-          return prevState
+          return state
     }
 } 
 

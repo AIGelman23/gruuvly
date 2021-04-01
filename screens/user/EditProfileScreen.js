@@ -13,10 +13,14 @@ import Colors from '../../constants/Colors';
 
 import { Auth } from 'aws-amplify';
 
+import { useSelector, useDispatch } from "react-redux";
+import { pickImage } from '../../store/camera/actions';
 
 const EditProfileScreen = props => {
 
-  const [selectedImage, setSelectedImage] = React.useState(null);
+  const dispatch = useDispatch();
+  const selectedImage = useSelector(state => state.camera.selectedImage);
+  // const [selectedImage, setSelectedImage] = React.useState(null);
   const [startCamera, setStartCamera] = React.useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -32,7 +36,8 @@ const EditProfileScreen = props => {
       quality: 1
     })
     if (!result.cancelled) {
-      setSelectedImage(result.uri)
+       dispatch(pickImage({ url: result.uri }))
+      // setSelectedImage(result.uri)
     }
   }
   
@@ -106,7 +111,8 @@ const EditProfileScreen = props => {
   const __savePhoto = () => {
     console.log('save photo');
     console.log(capturedImage);
-    setSelectedImage(capturedImage.uri)
+    dispatch(pickImage({ url: capturedImage.uri }))
+    // setSelectedImage(capturedImage.uri)
     setStartCamera(false)
   }
 

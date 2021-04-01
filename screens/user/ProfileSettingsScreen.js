@@ -4,11 +4,13 @@ import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import ProfileAccordion from '../../components/accordions/ProfileAccordion';
 import PersonalizeAccordion from '../../components/accordions/PersonalizeAccordion';
-
+import { useSelector, useDispatch } from "react-redux";
 import { Auth } from 'aws-amplify'
 
 
 const ProfileSettingsScreen = props => {
+
+  const selectedImage = useSelector(state => state.camera.selectedImage);
 
   return (
     
@@ -19,7 +21,7 @@ const ProfileSettingsScreen = props => {
         <Avatar.Image 
           rounded
           source={{
-             uri: 'https://media-exp1.licdn.com/dms/image/C4E03AQH9dj3Ie9J9ng/profile-displayphoto-shrink_100_100/0/1601337533090?e=1613606400&v=beta&t=6RLUEmKFw0uOTe3CS8Tui5n6Sm0jmrjNnp_T7fvqhMU',
+              uri: selectedImage
           }}
              size={120}
           />
